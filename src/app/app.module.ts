@@ -17,7 +17,8 @@ import { MakeReservationComponent } from './make-reservation/make-reservation.co
 import { UserService } from './user.service';
 import { HomeComponent } from './home/home.component'; // Adjust the path as necessary
 import { ReservationService } from './reservation.service';
-import { ContactService } from './contact.service'; // ContactService 임포트
+import { ContactService } from './contact.service';
+import { LoginComponent } from './login/login.component'; // ContactService 임포트
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ContactService } from './contact.service'; // ContactService 임포트
     EventsComponent,
     ContactComponent,
     MakeReservationComponent,
-    HomeComponent, // Uncomment if you have this component
+    HomeComponent,
+    LoginComponent, // Uncomment if you have this component
   ],
   imports: [
     BrowserModule,

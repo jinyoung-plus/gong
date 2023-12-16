@@ -41,7 +41,7 @@
 }
 
 .navigation a:hover {
-  color: #007bff; /* Highlight color on hover */
+  color: #ff9900; /* Highlight color on hover */
 }
 
 .header-right .admin-button {
@@ -54,7 +54,7 @@
 }
 
 .header-right .admin-button:hover {
-  background-color: #003300;
+  background-color: #ff9900;
 }
 
 /* Responsive adjustments */
@@ -160,7 +160,7 @@ main {
 }
 
 .btn-primary:hover {
-  background-color: #cc7a00; /* Darker shade for hover effect */
+  background-color: #FFFFF0;
 }
 
 /* Ensure that other elements are layered above the overlay */
