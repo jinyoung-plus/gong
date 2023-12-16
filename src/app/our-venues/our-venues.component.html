@@ -7,7 +7,7 @@
     <div class="venue-list">
         <!-- 반복되는 venue 아이템을 위한 예시 -->
         <div class="venue-item" *ngFor="let venue of venues">
-            <img [ngSrc]="venue.imageUrl" alt="{{ venue.name }}">
+            <img [src]="venue.imageUrl" alt="{{ venue.name }}">
             <div class="venue-info">
                 <h2>{{ venue.name }}</h2>
                 <p>{{ venue.description }}</p>
