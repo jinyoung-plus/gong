@@ -65,5 +65,21 @@ const Reservation = sequelize.define('Reservation', {
   // 모델 설정
 });
 
+const Contact = sequelize.define('Contact', {
+  // ... 연락처 모델 정의
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  message: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  }
+});
+
 // 모듈로 내보내기
-module.exports = { sequelize, LearningPackage, Reservation };
+module.exports = { sequelize, LearningPackage, Reservation, Contact };

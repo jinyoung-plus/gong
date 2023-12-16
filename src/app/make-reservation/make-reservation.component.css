@@ -59,13 +59,16 @@
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #003300;
   color: white;
   border: none;
   padding: 1rem;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  display: block;
+  width: fit-content;
+  margin: 2rem auto 0; /* 상단에 2rem의 마진을 추가하고, 나머지는 자동으로 설정 */
 }
 
 .btn-primary:hover {

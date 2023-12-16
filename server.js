@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const { LearningPackage } = require('./src/models/models'); // Sequelize 모델
 const { sequelize } = require('./src/models/models'); // sequelize 객체를 가져와야 함
 const { Reservation } = require('./src/models/models'); // Reservation 모델을 가져와야 함
-const { Contact } = require('./models'); // 가정: Sequelize 모델을 사용한다고 가정합니다.
+const { Contact } = require('./src/models/models'); // 가정: Sequelize 모델을 사용한다고 가정합니다.
 
 const app = express();
 
