@@ -17,6 +17,7 @@ import { MakeReservationComponent } from './make-reservation/make-reservation.co
 import { UserService } from './user.service';
 import { HomeComponent } from './home/home.component'; // Adjust the path as necessary
 import { ReservationService } from './reservation.service';
+import { ContactService } from './contact.service'; // ContactService 임포트
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ReservationService } from './reservation.service';
   providers: [
     // Provide your services here
     ReservationService,
+    ContactService, // 프로바이더에 추가
     UserService,
     { provide: APP_ID, useValue: 'gonggan-app' } // 'gonggan-app'으로 실제 ID를 설정
   ],

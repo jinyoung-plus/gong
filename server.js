@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const { LearningPackage } = require('./src/models/models'); // Sequelize 모델
 const { sequelize } = require('./src/models/models'); // sequelize 객체를 가져와야 함
 const { Reservation } = require('./src/models/models'); // Reservation 모델을 가져와야 함
+const { Contact } = require('./models'); // 가정: Sequelize 모델을 사용한다고 가정합니다.
 
 const app = express();
 
@@ -77,6 +78,20 @@ app.post('/reservations', async (req, res) => {
     await t.rollback();
     console.error('Error during reservation transaction', error);
     res.status(400).send(error);
+  }
+});
+
+app.post('/contacts', async (req, res) => {
+  try {
+    const newContact = await Contact.create({
+      name: req.body.name,
+      email: req.body.email,
+      message: req.body.message
+    });
+    res.status(201).json(newContact);
+  } catch (error) {
+    console.error('Error saving contact message:', error);
+    res.status(500).json({ message: 'Error saving contact message.' });
   }
 });
 
