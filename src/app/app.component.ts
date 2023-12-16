@@ -15,6 +15,7 @@ export class AppComponent {
 
   saveName(): void {
     console.log('Sending username to backend:', this.userName);
+    // Send the userName to the server and subscribe to the response
     this.userService.saveUserName(this.userName).subscribe(
       response => {
         console.log('Response:', response);
@@ -28,3 +29,5 @@ export class AppComponent {
     );
   }
 }
+
+

@@ -1,9 +1,10 @@
+/* src/app/app.component.css   */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #fdfdfd; /* 연한 상아색 */
+  background-color: #FFFFF0; /* 진한 상아색 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -15,6 +16,8 @@
   list-style: none;
   display: flex;
   gap: 20px; /* Space between navigation items */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
 }
 
 .navigation a {
@@ -45,15 +48,46 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .navigation ul {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
 
   .header {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .logo img {
     margin-bottom: 10px; /* Add space between logo and navigation on small screens */
   }
+}
+
+/* Additional media query to handle larger screens */
+@media (min-width: 769px) {
+  .navigation ul {
+    flex-direction: row; /* Ensure navigation is in a row */
+    justify-content: center; /* Center the navigation items */
+  }
+
+  .navigation li {
+    margin-right: 20px; /* Space between navigation items */
+  }
+
+  .navigation li:last-child {
+    margin-right: 0; /* Ensure the last item doesn't have extra space */
+  }
+}
+
+main {
+  background-image: url('assets/hotel.png'); /* Add this line to set the background image */
+  background-size: cover; /* Ensure the image covers the entire main area */
+  background-position: center; /* Center the image in the main area */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: inherit;
+  position: relative;
 }

@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'make-reservation', component: MakeReservationComponent },
   { path: '', redirectTo: '/about-us', pathMatch: 'full' }, // 기본 경로 설정
+
 ];
 
 @NgModule({

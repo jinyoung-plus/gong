@@ -1,6 +1,6 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,15 +26,16 @@ import { UserService } from './user.service'; // Adjust the path as necessary
   ],
   imports: [
     BrowserModule,
+    HttpClientModule, // Enable `fetch` for HttpClient
     FormsModule,
     RouterModule,
     AppRoutingModule,
-    HttpClientModule, // Enable `fetch` for HttpClient
     NgbModule
   ],
   providers: [
     // Provide your services here
-    UserService
+    UserService,
+    { provide: APP_ID, useValue: 'gonggan-app' } // 'gonggan-app'으로 실제 ID를 설정
   ],
   bootstrap: [AppComponent]
 })

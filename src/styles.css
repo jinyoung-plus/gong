@@ -1,8 +1,8 @@
 /* 전역 styles.css 파일 */
 
 /* 헤더 배경색 설정 */
-header, .header, .navbar { /* 실제 헤더의 클래스 이름에 따라 조정해주세요. */
-  background-color: #fdfdfd; /* 연한 상아색 */
+header, .header, .navbar {
+  background-color: #FFFFF0 !important; /* 진한 상아색 */
 }
 
 /* 헤더 내 링크 스타일 설정 */
