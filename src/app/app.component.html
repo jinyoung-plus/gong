@@ -147,8 +147,9 @@
   </div>
 </header>
 <!-- End of the header -->
+<router-outlet></router-outlet>
 
-
+<!--
 <main class="main">
   <div class="content">
     <div class="left-side">
@@ -197,14 +198,15 @@
     </div>
 
 </main>
-
+-->
 
 <!-- Main Hero Section -->
 <section class="hero">
-  <img src="assets/logo1.png" alt="Main hero image" class="hero-image">
-  <h1>Welcome to Gonggan</h1>
-  <p>Discover the perfect space for your events and celebrations.</p>
-  <a class="btn btn-primary" routerLink="/reservation">Book Now</a>
+  <div class="hero-content">
+    <h1>Welcome to Gonggan</h1>
+    <p>Discover the perfect space for your events and celebrations.</p>
+    <a class="btn btn-primary" routerLink="/reservation">Book Now</a>
+  </div>
 </section>
 
 <!-- Introduction Section -->
@@ -238,4 +240,4 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 
-<router-outlet></router-outlet>
+<!--<router-outlet></router-outlet>-->

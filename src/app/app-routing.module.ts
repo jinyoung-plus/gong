@@ -9,13 +9,12 @@ import { MakeReservationComponent } from './make-reservation/make-reservation.co
 
 
 const routes: Routes = [
+  { path: '', component: HomeComponent }, // 기본 경로 설정
   { path: 'about-us', component: AboutUsComponent },
   { path: 'our-venues', component: OurVenuesComponent },
   { path: 'events', component: EventsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'make-reservation', component: MakeReservationComponent },
-  { path: '', redirectTo: '/about-us', pathMatch: 'full' }, // 기본 경로 설정
-
 ];
 
 @NgModule({

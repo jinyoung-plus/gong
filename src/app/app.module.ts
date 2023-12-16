@@ -13,7 +13,8 @@ import { OurVenuesComponent } from './our-venues/our-venues.component';
 import { EventsComponent } from './events/events.component';
 import { ContactComponent } from './contact/contact.component';
 import { MakeReservationComponent } from './make-reservation/make-reservation.component'; // Uncomment if you have this component
-import { UserService } from './user.service'; // Adjust the path as necessary
+import { UserService } from './user.service';
+import { HomeComponent } from './home/home.component'; // Adjust the path as necessary
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserService } from './user.service'; // Adjust the path as necessary
     OurVenuesComponent,
     EventsComponent,
     ContactComponent,
-    MakeReservationComponent, // Uncomment if you have this component
+    MakeReservationComponent,
+    HomeComponent, // Uncomment if you have this component
   ],
   imports: [
     BrowserModule,
