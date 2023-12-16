@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { LearningPackage } = require('./src/models/models'); // Sequelize 모델
 const { sequelize } = require('./src/models/models'); // sequelize 객체를 가져와야 함
+const { Reservation } = require('./src/models/models'); // Reservation 모델을 가져와야 함
 
 const app = express();
 
@@ -37,6 +38,46 @@ app.post('/users', async (req, res) => {
 // 데이터베이스 동기화 코드 추가
 sequelize.sync({ force: false }).then(() => {
   console.log('Database & tables created!');
+});
+
+// 예약 엔드포인트 추가
+app.post('/reservations', async (req, res) => {
+  console.log('Received reservation data:', req.body);
+  const t = await sequelize.transaction();
+
+  try {
+    // req.body에서 예약 데이터 추출
+    const {
+      venue,
+      date, // 'date' 변수를 올바르게 사용
+      time, // 'time' 변수를 올바르게 사용
+      name,
+      email,
+      phone,
+      guests, // 'guests'는 'number_of_guests'로 변환해야 할 수도 있습니다.
+      specialRequests
+    } = req.body;
+
+    // 트랜잭션을 사용하여 Reservation 테이블에 새 예약 데이터 저장
+    const newReservation = await Reservation.create({
+      venue,
+      reservation_date: date, // 'date' 값을 'reservation_date' 필드에 할당
+      reservation_time: time, // 'time' 값을 'reservation_time' 필드에 할당
+      name,
+      email,
+      phone,
+      number_of_guests: guests, // 'guests' 값을 'number_of_guests' 필드에 할당
+      special_requests: specialRequests
+    }, { transaction: t });
+
+    await t.commit();
+    console.log(`New reservation added: ${newReservation.id}`);
+    res.status(201).send(newReservation);
+  } catch (error) {
+    await t.rollback();
+    console.error('Error during reservation transaction', error);
+    res.status(400).send(error);
+  }
 });
 
 const PORT = process.env.PORT || 3000;

@@ -18,4 +18,52 @@ const LearningPackage = sequelize.define('User', {
   // 모델 설정
 });
 
-module.exports = { sequelize, LearningPackage };
+// Reservation 모델 정의
+const Reservation = sequelize.define('Reservation', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  venue: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  reservation_date: {
+    type: DataTypes.DATEONLY,
+    allowNull: false
+  },
+  reservation_time: {
+    type: DataTypes.TIME,
+    allowNull: false
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  phone: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  number_of_guests: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  special_requests: {
+    type: DataTypes.TEXT
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  },
+  // 추가 필드 설정 가능
+}, {
+  // 모델 설정
+});
+
+// 모듈로 내보내기
+module.exports = { sequelize, LearningPackage, Reservation };
