@@ -1,10 +1,12 @@
 .carousel-item img {
-  height: 65vh; /* Adjust height as needed */
+  max-height: 400px; /* or any other value you prefer */
   object-fit: cover;
+  width: 100%; /* ensure it's responsive */
 }
 
+/* Your other styles */
 .container {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: auto;
 }
 

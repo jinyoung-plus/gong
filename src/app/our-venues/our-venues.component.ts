@@ -14,7 +14,14 @@ export class OurVenuesComponent implements OnInit {
     '/assets/smallroom1.png',
     '/assets/smallroom2.png',
   ];
-
+  descriptions = [
+    'This is room 1 with a luxurious atmosphere.',
+    'This is Room 2, which has a stylish and cozy atmosphere.',
+    'This is Room 3, which has a neat and tidy atmosphere.',
+    'This is room 4 with a warm and friendly atmosphere.',
+    'This is Room 5 with a lively and cheerful atmosphere.',
+    'This is room 6 with a great view.'
+  ];
   constructor() { }
 
   ngOnInit(): void {

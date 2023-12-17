@@ -23,6 +23,8 @@
     "@angular/ssr": "^17.0.7",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@nguniversal/express-engine": "^7.0.2",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "pg": "^8.11.3",
