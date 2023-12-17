@@ -1,7 +1,7 @@
 <div class="container my-4">
   <h2 class="text-center mb-3">Our Venues</h2>
 
-  <ngb-carousel *ngIf="images">
+  <ngb-carousel *ngIf="images" [interval]="3000">
     <ng-template ngbSlide *ngFor="let img of images; index as i">
       <div class="picsum-img-wrapper">
         <img [src]="img" alt="Room image" class="d-block w-100">

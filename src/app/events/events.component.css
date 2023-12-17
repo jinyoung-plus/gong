@@ -37,10 +37,12 @@
 }
 
 .event {
+  width: calc((100% - 60px) / 4); /* Adjust the number based on your gap and the number of items per row */
   background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
+  margin-bottom: 20px; /* Optional, if you want to maintain vertical gap */
 }
 
 /* Apply styles to the images with the 'event-image' class */
