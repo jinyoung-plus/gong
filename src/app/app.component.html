@@ -121,6 +121,23 @@
     background-repeat: no-repeat;
   }
 
+  .navigation {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* 수평으로 나타내기 위해 flex 사용 */
+  }
+
+  .navigation li {
+    margin-right: 20px; /* 각 메뉴 아이템 간의 간격 조절 */
+  }
+
+  .navigation a {
+    text-decoration: none;
+    color: #333; /* 링크 색상 설정 */
+    font-weight: bold;
+  }
+
 </style>
 
 <!-- Start of the header -->
@@ -140,6 +157,9 @@
       <li><a routerLink="/make-reservation">Make a Reservation</a></li>
     </ul>
   </nav>
+
+
+
 
   <!-- Right side of the header, for example, user profile or reservation button -->
 
