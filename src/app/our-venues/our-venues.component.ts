@@ -3,16 +3,16 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-our-venues',
   templateUrl: './our-venues.component.html',
-  styleUrl: './our-venues.component.css'
+  styleUrls: ['./our-venues.component.css']
 })
 export class OurVenuesComponent implements OnInit {
-  venues = [
-    {
-      name: 'Grand Ballroom',
-      imageUrl: 'assets/grand-ballroom.jpg',
-      description: 'An elegant space for large events and conferences.'
-    },
-    // ... 다른 venues 데이터
+  images = [
+    '/assets/grandballroom1.png',
+    '/assets/grandballroom2.png',
+    '/assets/middleroom1.png',
+    '/assets/middleroom2.png',
+    '/assets/smallroom1.png',
+    '/assets/smallroom2.png',
   ];
 
   constructor() { }

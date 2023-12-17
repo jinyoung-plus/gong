@@ -1,63 +1,18 @@
-/* about-us.component.css */
+/* About Us Component CSS */
 .about-us-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+  text-align: center;
+  padding: 20px;
 }
 
-.title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.description {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #333;
-}
-
-.image-container {
-  margin-top: 2rem;
+.about-us-image-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .about-us-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.details {
-  margin-top: 2rem;
-}
-
-.subtitle {
-  font-size: 2rem;
-  margin-top: 1rem;
-}
-
-.values-list {
-  list-style: none;
-  padding: 0;
-}
-
-.values-list li {
-  margin-bottom: 0.5rem;
-}
-
-.about-us-container {
-  /* Your styles for container */
-}
-
-.about-us-image {
-  width: 100%;
-  /* Additional styles for the image */
-}
-
-.mission-section, .values-section {
-  /* Your styles for sections */
-}
-
-.values-section ul {
-  list-style: none;
-  /* Additional styles for the list */
+  width: 100%; /* Makes the image responsive */
+  max-width: 540px; /* Maximum width of the image */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px; /* Optional: if you want rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow for depth */
 }

@@ -95,6 +95,27 @@ app.post('/contacts', async (req, res) => {
   }
 });
 
+// 연락처 데이터를 가져오는 라우트
+app.get('/contacts', async (req, res) => {
+  try {
+    const contacts = await Contact.findAll(); // Sequelize를 사용할 경우
+    res.json(contacts);
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
+});
+
+// 예약 데이터를 가져오는 라우트
+app.get('/reservations', async (req, res) => {
+  try {
+    const reservations = await Reservation.findAll();
+    res.status(200).json(reservations);
+  } catch (error) {
+    console.error('Error fetching reservations', error);
+    res.status(500).json({ message: 'Error fetching reservations.' });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
