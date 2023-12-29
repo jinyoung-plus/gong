@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReservationService } from '../reservation.service';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-make-reservation',
@@ -9,15 +11,24 @@ import { ReservationService } from '../reservation.service';
 })
 export class MakeReservationComponent implements OnInit {
   reservationForm!: FormGroup;
-  successMessage: string = ''; // 예약 성공 메시지를 위한 변수
+  currentUser: any;
 
   constructor(
-    private fb: FormBuilder,
-    private reservationService: ReservationService
+      private fb: FormBuilder,
+      private reservationService: ReservationService,
+      private authService: AuthService,
+      private router: Router
   ) { }
 
   ngOnInit(): void {
     this.initializeForm();
+    this.authService.currentUser.subscribe(user => {
+      this.currentUser = user;
+      if (!user) {
+        alert('Please log in to make a reservation.');
+        this.router.navigate(['/u-login']); // Redirect to login page
+      }
+    });
   }
 
   initializeForm(): void {
@@ -35,18 +46,22 @@ export class MakeReservationComponent implements OnInit {
 
   submitReservation(): void {
     if (this.reservationForm.valid) {
-      this.reservationService.createReservation(this.reservationForm.value)
-        .subscribe({
-          next: (response) => {
-            this.successMessage = 'Your reservation has been submitted successfully! Thank you!!'; // 성공 메시지 설정
-            this.initializeForm(); // 폼을 초기화합니다.
-          },
-          error: (error) => {
-            console.error('Error creating reservation:', error);
-          }
-        });
+      this.reservationService.createReservation({
+        ...this.reservationForm.value,
+        user_id: this.currentUser?.user_id
+      }).subscribe({
+        next: (response) => {
+          alert('Your reservation has been submitted successfully! Thank you!');
+          this.reservationForm.reset(); // Reset the form
+        },
+        error: (error) => {
+          console.error('Error creating reservation:', error);
+          alert('An error occurred while submitting your reservation.');
+        }
+      });
     } else {
-      console.error('The reservation form is not valid');
+      alert('Please fill in the reservation details.');
     }
   }
 }
+

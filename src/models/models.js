@@ -3,83 +3,160 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('postgres://gong:1234@localhost:5432/mydb');
 
-const LearningPackage = sequelize.define('User', {
-  user_id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  // 다른 필요한 칼럼들...
-}, {
-  // 모델 설정
-});
-
-// Reservation 모델 정의
+// Define Reservation model
 const Reservation = sequelize.define('Reservation', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  venue: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  reservation_date: {
-    type: DataTypes.DATEONLY,
-    allowNull: false
-  },
-  reservation_time: {
-    type: DataTypes.TIME,
-    allowNull: false
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  phone: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  number_of_guests: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  special_requests: {
-    type: DataTypes.TEXT
-  },
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  // 추가 필드 설정 가능
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    user_id: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'Users',
+            key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    phone: {
+        type: DataTypes.STRING,
+        allowNull: true
+        // allowNull defaults to true
+    },
+    venue: {
+        type: DataTypes.STRING
+        // allowNull defaults to true
+    },
+    reservation_date: {
+        type: DataTypes.DATEONLY
+        // allowNull defaults to true
+    },
+    reservation_time: {
+        type: DataTypes.TIME
+        // allowNull defaults to true
+    },
+    number_of_guests: {
+        type: DataTypes.INTEGER
+        // allowNull defaults to true
+    },
+    special_requests: {
+        type: DataTypes.TEXT
+        // allowNull defaults to true
+    },
+    status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'Pending'
+    },
+    admin_message: {
+        type: DataTypes.TEXT
+        // allowNull defaults to true
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+    }
 }, {
-  // 모델 설정
+    timestamps: false, // Since you are handling 'created_at' manually
+    tableName: 'Reservations' // Explicitly specifying table name
 });
 
+
+
+
+// Define Contact model
 const Contact = sequelize.define('Contact', {
-  // ... 연락처 모델 정의
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  message: {
-    type: DataTypes.TEXT,
-    allowNull: false
-  }
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    user_id: {
+        type: DataTypes.INTEGER
+        // Removed 'primaryKey: false' since it's unnecessary; 'primaryKey' is false by default.
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    message: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'pending'
+    },
+    admin_message: {
+        type: DataTypes.TEXT
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+    }
+}, {
+    // Sequelize model options
+    timestamps: true, // Enable automatic timestamps
+    createdAt: 'created_at', // Map Sequelize's 'createdAt' to your 'created_at' field
+    updatedAt: false // Disable Sequelize's 'updatedAt' as it's not in your schema
 });
 
-// 모듈로 내보내기
-module.exports = { sequelize, LearningPackage, Reservation, Contact };
+
+// Define User model
+const User = sequelize.define('User', {
+    user_id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, {
+    // Tell Sequelize the exact name of the column that stores the timestamp
+    timestamps: true, // Enable timestamps
+    createdAt: 'created_at', // Map the createdAt timestamp to the 'created_at' column
+    updatedAt: 'updated_at'  // Disable the updatedAt timestamp
+});
+
+const Admin = sequelize.define('Admin', {
+    admin_id: {
+        type: DataTypes.STRING,
+        primaryKey: true
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, {
+    // Sequelize model options
+    freezeTableName: true,
+    timestamps: false // Assuming you don't want createdAt/updatedAt for the admin table
+});
+
+Reservation.belongsTo(User, { foreignKey: 'user_id' });
+Contact.belongsTo(User, { foreignKey: 'user_id' });
+
+// Export the models
+module.exports = { sequelize, Reservation, Contact, User, Admin };

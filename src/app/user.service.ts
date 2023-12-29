@@ -12,9 +12,10 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  saveUserName(userName: string) {
-    return this.http.post(`${this.baseUrl}/users`, { username: userName });
-  }
+  //saveUserName(userName: string) {
+ //   return this.http.post(`${this.baseUrl}/users`, { username: userName });
+  //}
+
 
   // 추가: 사용자 데이터를 가져오는 메소드
   getUserData(userId: string): Observable<any> {

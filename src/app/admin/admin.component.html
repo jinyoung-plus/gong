@@ -1,4 +1,4 @@
-<!-- admin.component.html -->
+
 <!-- admin.component.html -->
 <div class="admin-dashboard">
   <h2>Admin Dashboard</h2>
@@ -6,22 +6,61 @@
   <section class="contact-section">
     <h3>Contacts</h3>
     <div class="contact-list">
-      <div *ngFor="let contact of contacts" class="contact-item">
+      <!-- Start of contact item loop -->
+      <div *ngFor="let contact of contacts; let i = index" class="contact-item">
         <p><strong>Name:</strong> {{ contact.name }}</p>
         <p><strong>Email:</strong> {{ contact.email }}</p>
         <p><strong>Message:</strong> {{ contact.message }}</p>
+
+        <!-- Admin Interaction Area for Contact -->
+        <div class="admin-interaction">
+          <label for="contact-status-{{i}}">Status:</label>
+          <select id="contact-status-{{i}}" [(ngModel)]="contact.status" (change)="updateContactStatus(contact.id, contact.status)">
+            <option value="pending">Pending</option>
+            <option value="in progress">In Progress</option>
+            <option value="complete">Complete</option>
+          </select>
+
+          <label for="contact-admin-message-{{i}}">Admin Message:</label>
+          <textarea id="contact-admin-message-{{i}}" [(ngModel)]="contact.admin_message"></textarea>
+
+          <button (click)="updateContactMessage(contact.id, contact.admin_message)">Update Message</button>
+        </div>
       </div>
+      <!-- End of contact item loop -->
     </div>
   </section>
 
   <section class="reservation-section">
     <h3>Reservations</h3>
     <div class="reservation-list">
-      <div *ngFor="let reservation of reservations" class="reservation-item">
+      <!-- Start of reservation item loop -->
+      <div *ngFor="let reservation of reservations; let i = index" class="reservation-item">
         <p><strong>Name:</strong> {{ reservation.name }}</p>
         <p><strong>Venue:</strong> {{ reservation.venue }}</p>
-        <p><strong>Date:</strong> {{ reservation.date }}</p>
+        <p><strong>Number of People:</strong> {{ reservation.number_of_guests }}</p>
+        <p><strong>Reservation Date:</strong> {{ reservation.reservation_date }}</p>
+        <p><strong>Reservation Time:</strong> {{ reservation.reservation_time }}</p>
+        <p><strong>Email:</strong> {{ reservation.email }}</p>
+        <p><strong>Phone:</strong> {{ reservation.phone }}</p>
+        <p><strong>Request Message:</strong> {{ reservation.special_requests }}</p>
+
+        <!-- Admin Interaction Area for Reservation -->
+        <div class="admin-interaction">
+          <label for="reservation-status-{{i}}">Status:</label>
+          <select id="reservation-status-{{i}}" [(ngModel)]="reservation.status" (change)="updateReservationStatus(reservation.id, reservation.status)">
+            <option value="pending">Pending</option>
+            <option value="in progress">In Progress</option>
+            <option value="complete">Complete</option>
+          </select>
+
+          <label for="reservation-admin-message-{{i}}">Admin Message:</label>
+          <textarea id="reservation-admin-message-{{i}}" [(ngModel)]="reservation.admin_message"></textarea>
+
+          <button (click)="updateReservationMessage(reservation.id, reservation.admin_message)">Update Message</button>
+        </div>
       </div>
+      <!-- End of reservation item loop -->
     </div>
   </section>
 </div>

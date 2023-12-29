@@ -1,0 +1,29 @@
+
+<div class="user-requests">
+    <h2>Your Contacts</h2>
+    <ul class="contacts-list">
+        <li *ngFor="let contact of contacts" class="contact-item">
+            <p><strong>Name:</strong> {{ contact.name }}</p>
+            <p><strong>Email:</strong> {{ contact.email }}</p>
+            <p><strong>Your Message:</strong> {{ contact.message }}</p>
+            <div class="status-message">
+                <p class="status"><strong>Status:</strong> <span class="status-value">{{ contact.status }}</span></p>
+                <p class="admin-message"><strong>Admin Message:</strong> <span class="admin-message-value">{{ contact.admin_message }}</span></p>
+            </div>
+        </li>
+    </ul>
+
+    <h2>Your Reservations</h2>
+    <ul class="reservations-list">
+        <li *ngFor="let reservation of reservations" class="reservation-item">
+            <p><strong>Venue:</strong> {{ reservation.venue }}</p>
+            <p><strong>Date:</strong> {{ reservation.reservation_date | date }}</p>
+            <p><strong>Time:</strong> {{ reservation.reservation_time }}</p>
+            <p><strong>Number of Guests:</strong> {{ reservation.number_of_guests }}</p>
+            <div class="status-message">
+                <p class="status"><strong>Status:</strong> <span class="status-value">{{ reservation.status }}</span></p>
+                <p class="admin-message"><strong>Admin Message:</strong> <span class="admin-message-value">{{ reservation.admin_message }}</span></p>
+            </div>
+        </li>
+    </ul>
+</div>

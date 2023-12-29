@@ -2,10 +2,7 @@
 
 <!-- 예약 폼 -->
 <div class="reservation-container">
-  <!-- 예약 성공 메시지를 표시하는 영역 -->
-  <div *ngIf="successMessage" class="alert alert-success">
-    {{ successMessage }}
-  </div>
+
   <h1>Make a Reservation</h1>
   <form [formGroup]="reservationForm" (ngSubmit)="submitReservation()">
     <!-- Venue selection -->

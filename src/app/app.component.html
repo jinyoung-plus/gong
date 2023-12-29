@@ -143,7 +143,7 @@
 <!-- Start of the header -->
 <header class="header">
   <!-- Logo -->
-  <a href="/" class="logo">
+  <a routerLink="/" class="logo">
     <img src="assets/mainLogo1.png" alt="Gonggan Logo" />
   </a>
 
@@ -158,71 +158,27 @@
     </ul>
   </nav>
 
-
-
-
   <!-- Right side of the header, for example, user profile or reservation button -->
-
   <div class="header-right">
-    <a href="/login" class="admin-button">admin</a>
+    <!-- Show welcome message and logout button if logged in -->
+    <ng-container *ngIf="(authService.currentUser | async) as currentUser; else loginAdminButtons">
+      <button (click)="goToUserRequests()" class="user-page-button">My Page</button>
+      <button (click)="onLogout()" class="logout-button">Log out</button>
+      <a routerLink="/admin" class="admin-button">Admin</a>
+    </ng-container>
+
+
+    <!-- Show login and admin link if not logged in -->
+    <ng-template #loginAdminButtons>
+      <a routerLink="/u-login" class="admin-button">Log In</a>
+      <a routerLink="/signup" class="admin-button">Sign Up</a>
+      <a routerLink="/admin-login" class="admin-button">Admin</a>
+    </ng-template>
   </div>
 
 </header>
 <!-- End of the header -->
 <router-outlet></router-outlet>
-
-<!--
-<main class="main">
-  <div class="content">
-    <div class="left-side">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 982 239"
-        fill="none"
-        class="angular-logo"
-      >
-
-        <defs>
-          <radialGradient
-            id="c"
-            cx="0"
-            cy="0"
-            r="1"
-            gradientTransform="rotate(118.122 171.182 60.81) scale(205.794)"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop offset=".707" stop-color="#FF41F8" stop-opacity=".5" />
-            <stop offset="1" stop-color="#FF41F8" stop-opacity="0" />
-          </radialGradient>
-          <linearGradient
-            id="b"
-            x1="0"
-            x2="982"
-            y1="192"
-            y2="192"
-            gradientUnits="userSpaceOnUse"
-          >
-
-            <stop offset=".526" stop-color="#CC26D5" />
-            <stop offset="1" stop-color="#7702FF" />
-          </linearGradient>
-          <clipPath id="a"><path fill="#fff" d="M0 0h982v239H0z" /></clipPath>
-        </defs>
-      </svg>
-      <h1>Welcom to Gonggan </h1>
-      <p>Hello. Enter your name~!! 🎉</p>
-       <input type="text" [(ngModel)]="userName">
-       <button (click)="saveName()">확인</button>
-     <div *ngIf="message">{{ message }}</div>
-    </div>
-    <div class="divider" role="separator" aria-label="Divider"></div>
-
-    </div>
-
-</main>
--->
-
-
 
 <!-- Footer -->
 <footer class="footer">
@@ -237,13 +193,4 @@
     </div>
   </div>
 </footer>
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-
-<!--<router-outlet></router-outlet>-->

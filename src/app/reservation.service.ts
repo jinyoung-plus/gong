@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Reservation } from './models/reservation.model';
 
 @Injectable({
     providedIn: 'root'
@@ -14,5 +15,8 @@ export class ReservationService {
         return this.http.post(`${this.baseUrl}/reservations`, reservationData);
     }
 
-    // Additional methods related to reservation could go here
+    // ReservationService 내부의 메소드
+    getUserReservations(userId: number): Observable<Reservation[]> {
+        return this.http.get<Reservation[]>(`http://localhost:3000/reservations/user/${userId}`);
+    }
 }

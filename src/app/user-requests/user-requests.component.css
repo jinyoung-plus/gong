@@ -1,0 +1,34 @@
+/* src/app/user-requests/user-requests.component.css */
+
+.user-requests {
+    /* Your styles for the container */
+}
+
+.contacts-list,
+.reservations-list {
+    /* Your styles for the lists */
+}
+
+.contacts-list li,
+.reservations-list li {
+    /* Your styles for list items */
+    margin-bottom: 10px;
+}
+
+.status-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f2f2f2; /* Light grey background */
+    border-left: 5px solid #007bff; /* Blue border on the left for high importance */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.status .status-value {
+    font-weight: bold;
+    color: #28a745; /* Green color for status */
+}
+
+.admin-message .admin-message-value {
+    font-weight: bold;
+    color: #dc3545; /* Red color for admin messages */
+}
