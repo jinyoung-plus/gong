@@ -1,6 +1,8 @@
 import { Component, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { AdminService } from './admin.service';
 
 @Component({
   selector: 'app-root',
@@ -9,34 +11,37 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'GP3';
-  userName: string = ''; // 사용자 이름을 저장할 변수
-  message: string = ''; // 사용자에게 표시할 메시지를 저장할 변수
+  isAdminLoggedIn$: Observable<boolean>;
 
-    constructor(public authService: AuthService, private router: Router) {}
-
-  goToUserRequests(): void {
-    this.router.navigate(['/user-requests']);
-  }
+    constructor(
+      public authService: AuthService,
+      private router: Router,
+      private adminService: AdminService
+    ) {
+      this.isAdminLoggedIn$ = this.adminService.isAdminLoggedIn;
+    }
 
   ngOnInit() {
-    // 사용자 상태 변화를 관찰하고, 변화가 있을 때마다 동작합니다.
-    this.authService.currentUser.subscribe((user: any) => {
-      if (user) {
-        // 로그인한 경우, 사용자 이름과 환영 메시지 업데이트
-        this.userName = user.email; // 이메일을 사용자 이름으로 설정
-        this.message = `Welcome, ${this.userName}`;
-      } else {
-        // 로그아웃한 경우, 사용자 이름과 메시지 초기화
-        this.userName = '';
-        this.message = '';
-      }
-    });
+    // Your initialization code, if any
   }
+
+  goToUserRequests(): void {
+    this.router.navigate(['./user-requests']);
+  }
+
   onLogout() {
     this.authService.logout();
+    this.router.navigate(['/']); // Redirect to home on logout
     // The user should be redirected to the login page within the logout method
   }
 
+  onAdminLogout(): void {
+    this.adminService.adminLogout();
+    // After logout, redirect and show alert
+    this.router.navigate(['/']).then(() => {
+      alert('Administrator logged out successfully.');
+    });
+  }
 }
 
 

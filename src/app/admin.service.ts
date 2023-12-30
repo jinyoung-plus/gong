@@ -1,42 +1,75 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable  } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+interface LoginResponse {
+  token: string;
+  message?: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  private adminLoggedIn = new BehaviorSubject<boolean>(false);
+  private _isAdminLoggedIn = new BehaviorSubject<boolean>(this.hasToken());
+  private logoutInProgress = false;
   private contactsUrl = 'http://localhost:3000/contacts';
   private reservationsUrl = 'http://localhost:3000/reservations';
   private loginUrl = 'http://localhost:3000/admin/login';
 
-  constructor(private http: HttpClient) { }
-
-  // Provide observable for components to subscribe
-  isAdminLoggedIn(): Observable<boolean> {
-    return this.adminLoggedIn.asObservable();
+  constructor(
+      private http: HttpClient,
+      @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    // isPlatformBrowser를 사용하여 브라우저 환경인지 확인 후,
+    // BehaviorSubject의 초기 값을 설정합니다.
+    this._isAdminLoggedIn = new BehaviorSubject<boolean>(
+        isPlatformBrowser(this.platformId) && !!localStorage.getItem('adminToken')
+    );
+  }
+  // localStorage 접근 전에 브라우저에서 실행 중인지 확인
+  private hasToken(): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      return !!localStorage.getItem('adminToken');
+    }
+    return false; // 서버 사이드에서는 false를 반환
   }
 
 
-  public loginAdmin(adminId: string, password: string) {
-    this.adminLoggedIn.next(true);
-    return this.http.post(this.loginUrl, { admin_id: adminId, password: password });
+  public loginAdmin(adminId: string, adminPassword: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(this.loginUrl, { admin_id: adminId, password: adminPassword }).pipe(
+        tap((response: LoginResponse) => {
+          if (response.token) {
+            localStorage.setItem('adminToken', response.token);
+            this._isAdminLoggedIn.next(true);
+          }
+        })
+    );
   }
 
-
-
-  // Method to update the admin login status
   setAdminLoggedIn(loggedIn: boolean): void {
-    this.adminLoggedIn.next(loggedIn);
+
+    this._isAdminLoggedIn.next(loggedIn);
   }
+
+// Call this method to check if the admin is logged in
+    get isAdminLoggedIn(): Observable<boolean> {
+        return this._isAdminLoggedIn.asObservable();
+    }
 
   // Method to handle admin logout
-  public adminLogout(): void {
-    // Perform necessary logout actions, like clearing the token
-    this.setAdminLoggedIn(false);
-    this.adminLoggedIn.next(false);
+  adminLogout(): void {
+    if (!this.logoutInProgress) {
+      this.logoutInProgress = true;
+      // Perform necessary logout actions, like clearing the token
+      localStorage.removeItem('adminToken'); // Assuming token is stored in localStorage
+      this.setAdminLoggedIn(false);
+      // Trigger logout event/notification here if needed
+      // Reset the flag after logout actions are completed
+      this.logoutInProgress = false;
+    }
   }
 
 

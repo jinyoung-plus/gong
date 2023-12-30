@@ -20,26 +20,13 @@ export class AuthService {
         const storedUser = isPlatformBrowser(this.platformId) ? localStorage.getItem('currentUser') : null;
         this.currentUserSubject = new BehaviorSubject<any>(storedUser ? JSON.parse(storedUser) : null);
     }
-    // The loginAdmin method
-    loginAdmin(username: string, password: string): Observable<any> {
-        // Define the body of the request
-        const body = { username, password };
 
-        // Make an HTTP POST request to the admin login endpoint
-        return this.http.post<any>(`http://localhost:3000/admin/login`, body)
-            .pipe(
-                map(response => {
-                    // If there's a token in the response, the admin is logged in
-                    if (response.token) {
-                        // Store the admin credentials and token in local storage or a suitable place
-                        localStorage.setItem('adminToken', response.token);
-                        // You can also store other admin details as needed
-                    }
-                    return response;
-                })
-            );
-    }
-
+  // Helper method to determine if a user is logged in
+  public get isAuthenticated(): Observable<boolean> {
+    return this.currentUserSubject.asObservable().pipe(
+      map(user => !!user) // Convert user object to a boolean
+    );
+  }
 
     public get currentUserValue(): any {
         return this.currentUserSubject.value;
@@ -74,8 +61,6 @@ export class AuthService {
                // })
             );
     }
-
-
 
     logout(): void {
         // Remove user from local storage and update the currentUserSubject

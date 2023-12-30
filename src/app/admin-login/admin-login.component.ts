@@ -1,3 +1,4 @@
+// In admin-login.component.ts
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -6,13 +7,9 @@ import { AdminService } from '../admin.service';
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
-  styleUrl: './admin-login.component.css'
+  styleUrls: ['./admin-login.component.css']
 })
 export class AdminLoginComponent implements OnInit {
-
-  // Add showLogin variable
-  showLogin: boolean = true; // Start with the login form displayed
-
   loginData = {
     adminId: '',
     adminPassword: ''
@@ -22,30 +19,48 @@ export class AdminLoginComponent implements OnInit {
     adminPassword: ''
   };
 
-  constructor(private router: Router, public adminService: AdminService) { }
+  constructor(
+    private router: Router,
+    public adminService: AdminService
+  ) {}
 
   ngOnInit(): void {
-    this.adminService.isAdminLoggedIn().subscribe(loggedIn => {
-      this.showLogin = !loggedIn; // showLogin is true when loggedIn is false, and vice versa
+    // Check the admin login status on init and adjust the UI accordingly
+    this.adminService.isAdminLoggedIn.subscribe(loggedIn => {
+      if (loggedIn) {
+        // If the admin is already logged in, navigate away from the login page
+        this.router.navigate(['/admin']);
+      }
+      // Otherwise, stay on the login page and show the login form
     });
-
   }
 
-  onALogin(): void {
-    this.adminService.loginAdmin(this.loginData.adminId, this.loginData.adminPassword)
-        .subscribe({
-          next: (response: any) => {
-            // Assuming the response includes some form of success indication
-            this.router.navigate(['/admin']);
-          },
-          error: (error: any) => {
-            console.error('Invalid login credentials');
-            // Handle the error, e.g., show an error message to the user
-          }
-        });
-  }
+    onALogin(): void {
+        this.adminService.loginAdmin(this.loginData.adminId, this.loginData.adminPassword)
+            .subscribe({
+                next: (response: any) => {
+                    console.log('here1:', response);
+                    // If a token is present, we can assume the login was successful
+                    if (response && response.token) {
+                        alert('Admin login successful');
+                        this.adminService.setAdminLoggedIn(true);
+                        this.router.navigate(['/admin']);
+                    } else {
+                        // No token means login failed
+                        alert('Login failed: ' + response.message);
+                        this.adminService.setAdminLoggedIn(false);
+                    }
+                },
+                error: (error: any) => {
+                    console.log('Login error:', error);
+                    alert('Login failed: ' + (error.error.message || 'Invalid login credentials'));
+                    this.adminService.setAdminLoggedIn(false);
+                }
+            });
+    }
 
-  onARegister(): void {
+
+    onARegister(): void {
     this.adminService.registerAdmin(this.registerData.adminId, this.registerData.adminPassword)
         .subscribe({
           next: (response: any) => {
@@ -59,8 +74,5 @@ export class AdminLoginComponent implements OnInit {
           }
         });
   }
-  onAdminLogout(): void {
-    this.adminService.adminLogout(); // This should clear the admin's auth state
-    this.router.navigate(['/']); // Redirect to home or login page after logout
-  }
+
 }

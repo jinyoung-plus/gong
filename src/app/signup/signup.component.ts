@@ -19,7 +19,10 @@ export class SignupComponent {
       const password = form.value.password;
       this.authService.register(email, password).subscribe({
         next: (response) => {
-          // If new user is registered, redirect to login page
+          // Display an alert message upon successful registration
+          alert('사용자 등록에 성공했습니다.');
+
+          // Redirect to login page after the alert
           this.router.navigate(['/u-login']);
         },
         error: (error) => {

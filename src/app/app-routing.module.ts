@@ -31,10 +31,17 @@ const routes: Routes = [
     component: UserRequestsComponent,
     canActivate: [AuthGuard] // 사용자가 로그인한 경우에만 접근 가능하도록 설정
   },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AuthGuard],
+    data: { isAdminRoute: true } // Only admins can access
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

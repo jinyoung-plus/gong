@@ -4,20 +4,14 @@
     <form (ngSubmit)="onALogin()">
         <div class="form-group">
             <label for="adminId">Admin ID:</label>
-            <input type="text" id="adminId" class="form-control" [(ngModel)]="loginData.adminId" name="adminId" required>
+            <input type="text" id="adminId" class="form-control" [(ngModel)]="loginData.adminId" placeholder="Enter admin ID" name="adminId" required>
         </div>
         <div class="form-group">
             <label for="adminPassword">Password:</label>
-            <input type="password" id="adminPassword" class="form-control" [(ngModel)]="loginData.adminPassword" name="adminPassword" required>
+            <input type="password" id="adminPassword" class="form-control" [(ngModel)]="loginData.adminPassword" placeholder="Enter admin password" name="adminPassword" required>
         </div>
         <button type="submit" class="btn-login">Login</button>
     </form>
 </div>
 
-<ng-container *ngIf="adminService.isAdminLoggedIn() | async; else loginAdminButtons">
-    <button (click)="onAdminLogout()" class="btn-logout">Admin Logout</button>
-</ng-container>
-<ng-template #loginAdminButtons>
-    <button routerLink="/a-login" class="btn-login">Admin</button>
-</ng-template>
 
